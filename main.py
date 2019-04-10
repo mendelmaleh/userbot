@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3 -u
 from pyrogram import Client, Filters
 
 app = Client('userbot')
