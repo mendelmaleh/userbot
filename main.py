@@ -1,9 +1,11 @@
 #!/usr/local/bin/python3 -u
+
 from pyrogram import Client, Filters
 
 app = Client('userbot')
+prefixes = '.:!'
 
-@app.on_message(Filters.command('id', '.'))
+@app.on_message(Filters.command('id', prefixes))
 def get_id(client, message):
     text = f'<code>{message.chat.id}</code>'
     client.edit_message_text(
@@ -12,7 +14,7 @@ def get_id(client, message):
         text,
         parse_mode='html')
 
-@app.on_message((Filters.me | Filters.channel) & Filters.command('purge', '.'))
+@app.on_message((Filters.me | Filters.channel) & Filters.command('purge', prefixes))
 def purge_msgs(client, message):
     for msg in client.iter_history(
             message.chat.id,
