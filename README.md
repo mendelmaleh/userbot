@@ -4,3 +4,8 @@
 **commands:**
 * id
 * purge
+
+**todo:**
+* neofetch/uptime/stats
+* compare groups
+* sub
