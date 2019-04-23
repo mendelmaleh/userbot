@@ -1,6 +1,8 @@
 #!/usr/local/bin/python3 -u
 
 from pyrogram import Client, Filters
+from pyrogram.errors import BadRequest
+import time
 
 app = Client('userbot')
 prefixes = '.:!'
@@ -36,6 +38,30 @@ def get_chats(client, message):
         message.message_id,
         text,
         parse_mode='html')
+
+@app.on_message(Filters.command('channels', prefixes))
+def get_channels(client, message):
+    text = '<b>Channels</b>'
+    me = client.get_me()
+    for dialog in client.iter_dialogs():
+        if dialog.chat.type == 'channel':
+            try:
+                admins = client.get_chat_members(dialog.chat.id, filter='administrators')
+            except BadRequest:
+                continue
+
+            for i in admins.chat_members:
+                if i.user.id == me.id:
+                    time.sleep(5)
+                    chat = client.get_chat(dialog.chat.id)
+                    text += f'\n<a href="{chat.invite_link}">{chat.first_name}</a>'
+
+    client.edit_message_text(
+        message.chat.id,
+        message.message_id,
+        text,
+        parse_mode='html')
+
 
 """
 syntax: `purge [int]`
