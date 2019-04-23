@@ -14,6 +14,28 @@ def get_id(client, message):
         text,
         parse_mode='html')
 
+@app.on_message(Filters.command('chats', prefixes))
+def get_chats(client, message):
+    chats = {
+        "private":0,
+        "channel":0,
+        "group":0,
+        "supergroup":0,
+        "bot":0
+    }
+
+    for dialog in client.iter_dialogs():
+        chats[dialog.chat.type] += 1
+
+    text = '<b>Chats</b>'
+    for i in chats:
+       text += f'\n{i}: {chats[i]}' 
+
+    client.edit_message_text(
+        message.chat.id,
+        message.message_id,
+        text,
+        parse_mode='html')
 
 """
 syntax: `purge [int]`
