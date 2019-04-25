@@ -62,6 +62,35 @@ def get_channels(client, message):
         text,
         parse_mode='html')
 
+@app.on_message(Filters.command('members', prefixes))
+def get_members(client, message):
+    text = '<b>Memebers</b<'
+    members = {
+            'users': 0,
+            'creator': 0,
+            'administrator': 0,
+            'member': 0,
+            'restricted': 0,
+            'left': 0,
+            'kicked': 0,
+            'deleted': 0
+            }
+
+    for member in client.iter_chat_members(message.chat.id):
+        members[member.status] += 1
+        members['users'] += 1
+        if member.user.is_deleted:
+            members['deleted'] += 1
+
+    for i in members:
+        text += '\n{i}: {members[i]}'
+
+    client.edit_message_text(
+        message.chat.id,
+        message.message_id,
+        text,
+        parse_mode='html')
+
 
 """
 syntax: `purge [int]`
