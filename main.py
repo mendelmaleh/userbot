@@ -52,9 +52,9 @@ def get_channels(client, message):
 
             for i in admins.chat_members:
                 if i.user.id == me.id:
-                    time.sleep(5)
+                    time.sleep(0.2)
                     chat = client.get_chat(dialog.chat.id)
-                    text += f'\n<a href="{chat.invite_link}">{chat.first_name}</a>'
+                    text += f'\n<a href="{chat.invite_link}">{chat.title}</a>'
 
     client.edit_message_text(
         message.chat.id,
@@ -64,7 +64,7 @@ def get_channels(client, message):
 
 @app.on_message(Filters.command('members', prefixes))
 def get_members(client, message):
-    text = '<b>Memebers</b<'
+    text = '<b>Memebers</b>'
     members = {
             'users': 0,
             'creator': 0,
@@ -83,7 +83,7 @@ def get_members(client, message):
             members['deleted'] += 1
 
     for i in members:
-        text += '\n{i}: {members[i]}'
+        text += f'\n{i}: {members[i]}'
 
     client.edit_message_text(
         message.chat.id,
