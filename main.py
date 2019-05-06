@@ -28,7 +28,8 @@ def get_chats(client, message):
     }
 
     for dialog in client.iter_dialogs():
-        if dialog.chat.type == 'private' and app.get_users(dialog.chat.id).is_bot:
+        if dialog.chat.type == 'private' and dialog.chat.username is not None and  \
+            dialog.chat.username[-3:] == 'bot' and app.get_users(dialog.chat.id).is_bot:
             chats['bot'] += 1
             continue
 
