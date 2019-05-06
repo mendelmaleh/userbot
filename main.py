@@ -26,14 +26,21 @@ def get_chats(client, message):
         "supergroup":0,
         "bot":0
     }
+    private_ids = []
 
     for dialog in client.iter_dialogs():
-        if dialog.chat.type == 'private' and dialog.chat.username is not None and  \
-            dialog.chat.username[-3:] == 'bot' and app.get_users(dialog.chat.id).is_bot:
-            chats['bot'] += 1
+        if dialog.chat.type == 'private':
+            private_ids.append(dialog.chat.id)
             continue
 
         chats[dialog.chat.type] += 1
+
+    private_users = app.get_users(private_ids)
+    for user in private_users:
+        if user.is_bot:
+            chats['bot'] += 1
+        else:
+            chats['private'] += 1
 
     text = '<b>Chats</b>'
     for i in chats:
