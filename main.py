@@ -27,6 +27,10 @@ def get_chats(client, message):
     }
 
     for dialog in client.iter_dialogs():
+        if dialog.chat.type == 'private' and app.get_users(dialog.chat.id).is_bot:
+            chats['bot'] += 1
+            continue
+
         chats[dialog.chat.type] += 1
 
     text = '<b>Chats</b>'
