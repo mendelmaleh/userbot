@@ -7,6 +7,7 @@ import time
 app = Client('userbot')
 prefixes = '.:!'
 
+
 @app.on_message(Filters.command('id', prefixes))
 def get_id(client, message):
     text = f'<code>{message.chat.id}</code>'
@@ -15,6 +16,7 @@ def get_id(client, message):
         message.message_id,
         text,
         parse_mode='html')
+
 
 @app.on_message(Filters.command('chats', prefixes))
 def get_chats(client, message):
@@ -50,7 +52,7 @@ def get_chats(client, message):
             f += ' chat'
         f += 's'
         text += f'\n{f}: {chats[i]}'
-    
+
     text += f'\n<b>total: {sum(chats[i] for i in chats)}</b> -> {int(time.time() - start)}s'
 
     client.edit_message_text(
@@ -58,6 +60,7 @@ def get_chats(client, message):
         message.message_id,
         text,
         parse_mode='html')
+
 
 @app.on_message(Filters.command('channels', prefixes))
 def get_channels(client, message):
@@ -85,6 +88,7 @@ def get_channels(client, message):
         text,
         parse_mode='html')
 
+
 @app.on_message(Filters.command('members', prefixes))
 def get_members(client, message):
     text = '<b>Memebers</b>'
@@ -97,7 +101,7 @@ def get_members(client, message):
             'left': 0,
             'kicked': 0,
             'deleted': 0
-            }
+    }
 
     for member in client.iter_chat_members(message.chat.id):
         members[member.status] += 1
@@ -137,13 +141,13 @@ def purge_msgs(client, message):
                 message.chat.id,
                 limit=n,
                 offset_id=message.reply_to_message.message_id,
-                reverse=True) # this reverse gets messages after offset_id, rather than before it
-            msgs = reversed(msgs.messages) # this reverses the order of the messages to delete
+                reverse=True)  # this reverse gets messages after offset_id, rather than before it
+            msgs = reversed(msgs.messages)  # this reverses the order of the messages to delete
 
-        else: # if cmd has int, but is not a reply
+        else:  # if cmd has int, but is not a reply
             msgs = client.get_history(message.chat.id, limit=n+1).messages
 
-    else: # if cmd doesn't have an int
+    else:  # if cmd doesn't have an int
         if not message.reply_to_message:
             return
 
@@ -156,5 +160,6 @@ def purge_msgs(client, message):
     # finally
     for msg in msgs:
         msg.delete()
+
 
 app.run()
