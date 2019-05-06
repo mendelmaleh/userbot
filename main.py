@@ -18,6 +18,7 @@ def get_id(client, message):
 
 @app.on_message(Filters.command('chats', prefixes))
 def get_chats(client, message):
+    start = time.time()
     chats = {
         "private":0,
         "channel":0,
@@ -36,6 +37,8 @@ def get_chats(client, message):
     text = '<b>Chats</b>'
     for i in chats:
        text += f'\n{i}: {chats[i]}' 
+    
+    text += f'\n<i>{int(time.time() - start)}s</i>'
 
     client.edit_message_text(
         message.chat.id,
@@ -45,6 +48,7 @@ def get_chats(client, message):
 
 @app.on_message(Filters.command('channels', prefixes))
 def get_channels(client, message):
+    start = time.time()
     text = '<b>Channels</b>'
     me = client.get_me()
     for dialog in client.iter_dialogs():
@@ -59,6 +63,8 @@ def get_channels(client, message):
                     time.sleep(0.2)
                     chat = client.get_chat(dialog.chat.id)
                     text += f'\n<a href="{chat.invite_link}">{chat.title}</a>'
+
+    text += f'\n<i>{int(time.time() - start)}s</i>'
 
     client.edit_message_text(
         message.chat.id,
