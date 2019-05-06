@@ -20,11 +20,11 @@ def get_id(client, message):
 def get_chats(client, message):
     start = time.time()
     chats = {
-        "private":0,
-        "channel":0,
-        "group":0,
-        "supergroup":0,
-        "bot":0
+        'private': 0,
+        'channel': 0,
+        'group': 0,
+        'supergroup': 0,
+        'bot': 0
     }
     private_ids = []
 
