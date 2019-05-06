@@ -38,7 +38,7 @@ def get_chats(client, message):
     for i in chats:
        text += f'\n{i}: {chats[i]}' 
     
-    text += f'\n<i>{int(time.time() - start)}s</i>'
+    text += f'\n<b>total: {sum(chats[i] for i in chats)}</b><i> - {int(time.time() - start)}s</i>'
 
     client.edit_message_text(
         message.chat.id,
