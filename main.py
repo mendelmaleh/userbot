@@ -8,16 +8,6 @@ app = Client('userbot')
 prefixes = '.:!'
 
 
-@app.on_message(Filters.command('id', prefixes))
-def get_id(client, message):
-    text = f'<code>{message.chat.id}</code>'
-    client.edit_message_text(
-        message.chat.id,
-        message.message_id,
-        text,
-        parse_mode='html')
-
-
 @app.on_message(Filters.command('chats', prefixes))
 def get_chats(client, message):
     start = time.time()
