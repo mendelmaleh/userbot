@@ -1,9 +1,8 @@
-from pyrogram import Client, Filters
+from pyrogram import Client
+from .shared import cmd_filter
 
-prefixes = '.:!'
 
-
-@Client.on_message(Filters.command('id', prefixes))
+@Client.on_message(cmd_filter('id'))
 def get_id(client, message):
     text = f'<code>{message.chat.id}</code>'
     client.edit_message_text(
