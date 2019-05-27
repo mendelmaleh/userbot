@@ -10,7 +10,7 @@ RESULT = "__eval:__\n```{}```\n__result:__\n```{}```"
 
 @Client.on_message(Filters.me & cmd_filter('eval'))
 def _(client, message):
-    exp = ' '.join(message.command[1:])
+    exp = ' '.join(message.command[1:]).replace('—', '--')
 
     if exp:
         edit = partial(

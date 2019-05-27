@@ -13,7 +13,7 @@ RESULT = "__exec:__\n```{}```\n__result:__\n```{}```"
 
 @Client.on_message(Filters.me & cmd_filter('exec'))
 def _(client, message):
-    exp = ' '.join(message.command[1:])
+    exp = ' '.join(message.command[1:]).replace('—', '--')
     edit = partial(
             client.edit_message_text,
             chat_id=message.chat.id,
