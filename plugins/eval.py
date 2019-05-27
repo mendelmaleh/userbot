@@ -2,10 +2,10 @@ from pyrogram import Client, Filters
 from functools import partial
 from .shared import cmd_filter
 
-RUNNING = "**Eval:**\n```{}```\n**Running...**"
-ERROR = "**Eval:**\n```{}```\n**Error:**\n```{}```"
-SUCCESS = "**Eval:**\n```{}```\n**Success**"
-RESULT = "**Eval:**\n```{}```\n**Result:**\n```{}```"
+RUNNING = "__eval:__\n```{}```\n__running...__"
+ERROR = "__eval:__\n```{}```\n__error:__\n```{}```"
+SUCCESS = "__eval:__\n```{}```\n__success__"
+RESULT = "__eval:__\n```{}```\n__result:__\n```{}```"
 
 
 @Client.on_message(Filters.me & cmd_filter('eval'))

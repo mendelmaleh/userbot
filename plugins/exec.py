@@ -5,10 +5,10 @@ from io import StringIO
 
 from .shared import cmd_filter
 
-RUNNING = "**Exec:**\n```{}```\n**Running...**"
-ERROR = "**Exec:**\n```{}```\n**Error:**\n```{}```"
-SUCCESS = "**Exec:**\n```{}```\n**Success**"
-RESULT = "**Exec:**\n```{}```\n**Result:**\n```{}```"
+RUNNING = "__exec:__\n```{}```\n__running...__"
+ERROR = "__exec:__\n```{}```\n__error:__\n```{}```"
+SUCCESS = "__exec:__\n```{}```\n__success__"
+RESULT = "__exec:__\n```{}```\n__result:__\n```{}```"
 
 
 @Client.on_message(Filters.me & cmd_filter('exec'))

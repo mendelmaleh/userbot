@@ -30,7 +30,7 @@ def get_chats(client, message):
         else:
             chats['private'] += 1
 
-    text = '<b>Chats</b>'
+    text = '<i>chats</i>'
 
     for i in chats:
         f = i
@@ -51,7 +51,7 @@ def get_chats(client, message):
 @Client.on_message(cmd_filter('channels'))
 def get_channels(client, message):
     start = time.time()
-    text = '<b>Channels</b>'
+    text = '<i>channels</i>'
     me = client.get_me()
     for dialog in client.iter_dialogs():
         if dialog.chat.type == 'channel':
@@ -77,7 +77,7 @@ def get_channels(client, message):
 
 @Client.on_message(cmd_filter('members'))
 def get_members(client, message):
-    text = '<b>Memebers</b>'
+    text = '<i>members</i>'
     members = {
             'users': 0,
             'creator': 0,
