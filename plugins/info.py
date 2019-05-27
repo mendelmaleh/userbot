@@ -14,11 +14,11 @@ def _(client, message):
         ('python', platform.python_version()),
         (distro.id(), distro.version())
     ])
-    text = '<i>userbot:</i>'
+    text = '__userbot:__'
     for i in info:
-        text += f'\n<b>{i}</b> <code>{info[i]}</code>'
+        text += f'\n**{i}** `{info[i]}`'
     client.edit_message_text(
         message.chat.id,
         message.message_id,
         text,
-        parse_mode='html')
+        parse_mode='markdown')

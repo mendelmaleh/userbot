@@ -1,16 +1,14 @@
 from pyrogram import Client, Filters
 from contextlib import redirect_stdout
 from functools import partial
-from cgi import escape
 from io import StringIO
-import re
 
 from .shared import cmd_filter
 
-RUNNING = "<b>Exec:</b>\n<code>{}</code>\n<b>Running...</b>"
-ERROR = "<b>Exec:</b>\n<code>{}</code>\n<b>Error:</b>\n<code>{}</code>"
-SUCCESS = "<b>Exec:</b>\n<code>{}</code>\n<b>Success</b>"
-RESULT = "<b>Exec:</b>\n<code>{}</code>\n<b>Result:</b>\n<code>{}</code>"
+RUNNING = "**Exec:**\n```{}```\n**Running...**"
+ERROR = "**Exec:**\n```{}```\n**Error:**\n```{}```"
+SUCCESS = "**Exec:**\n```{}```\n**Success**"
+RESULT = "**Exec:**\n```{}```\n**Result:**\n```{}```"
 
 
 @Client.on_message(Filters.me & cmd_filter('exec'))
@@ -20,7 +18,7 @@ def _(client, message):
             client.edit_message_text,
             chat_id=message.chat.id,
             message_id=message.message_id,
-            parse_mode='html'
+            parse_mode='markdown'
     )
 
     edit(text=RUNNING.format(exp))
@@ -35,5 +33,4 @@ def _(client, message):
         if res is None:
             edit(text=SUCCESS.format(exp))
         else:
-            edit(text=RESULT.format(exp, escape(res.rstrip())))
-
+            edit(text=RESULT.format(exp, res.rstrip()))
