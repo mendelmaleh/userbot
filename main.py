@@ -1,5 +1,6 @@
 #!/usr/local/bin/python3 -u
 from pyrogram import Client
 
-app = Client('userbot')
+plugins = dict(root='plugins')
+app = Client('userbot', plugins=plugins)
 app.run()
