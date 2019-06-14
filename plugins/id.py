@@ -6,7 +6,7 @@ from .shared import cmd_filter
 def get_id(client, message):
     text = f'<code>{message.chat.id}</code>'
     client.edit_message_text(
-        message.chat.id,
-        message.message_id,
-        text,
+        text=text,
+        chat_id=message.chat.id,
+        message_id=message.message_id,
         parse_mode='html')

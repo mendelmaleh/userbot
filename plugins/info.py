@@ -18,7 +18,7 @@ def _(client, message):
     for i in info:
         text += f'\n**{i}** `{info[i]}`'
     client.edit_message_text(
-        message.chat.id,
-        message.message_id,
-        text,
+        text=text,
+        chat_id=message.chat.id,
+        message_id=message.message_id,
         parse_mode='markdown')

@@ -42,9 +42,9 @@ def get_chats(client, message):
     text += f'\n<b>total: {sum(chats[i] for i in chats)}</b> -> {int(time.time() - start)}s'
 
     client.edit_message_text(
-        message.chat.id,
-        message.message_id,
-        text,
+        text=text,
+        chat_id=message.chat.id,
+        message_id=message.message_id,
         parse_mode='html')
 
 
@@ -69,9 +69,9 @@ def get_channels(client, message):
     text += f'\n<i>{int(time.time() - start)}s</i>'
 
     client.edit_message_text(
-        message.chat.id,
-        message.message_id,
-        text,
+        text=text,
+        chat_id=message.chat.id,
+        message_id=message.message_id,
         parse_mode='html')
 
 
@@ -99,7 +99,7 @@ def get_members(client, message):
         text += f'\n{i}: {members[i]}'
 
     client.edit_message_text(
-        message.chat.id,
-        message.message_id,
-        text,
+        text=text,
+        chat_id=message.chat.id,
+        message_id=message.message_id,
         parse_mode='html')
