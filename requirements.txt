@@ -1,3 +1,4 @@
-https://github.com/pyrogram/pyrogram/archive/develop.zip
+# https://github.com/pyrogram/pyrogram/archive/develop.zip
+pyrogram==0.14.1
 tgcrypto
 distro
