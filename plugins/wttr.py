@@ -2,7 +2,7 @@ from pyrogram import Client
 from docopt import DocoptExit
 from wttr import wttr
 from html import escape
-from .shared import gefilter
+from .utils import gefilter
 
 
 @Client.on_message(gefilter('wttr'))

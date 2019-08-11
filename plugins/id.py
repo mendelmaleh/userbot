@@ -1,8 +1,10 @@
 '''
-usage: id [-h] [-x] [-c | -m | -r | -f]
+usage: id [-h] [-x | -p] [-c | -m | -r | -f]
 
   -h, --help        help message
+
   -x, --hex         id as hex
+  -p, --permalink   id as permalink
 
   -c, --chat        chat id (default)
   -m, --me          user id
@@ -10,43 +12,50 @@ usage: id [-h] [-x] [-c | -m | -r | -f]
   -f, --forwarded   'forwarded from' from rtm
 '''
 
-from pyrogram import Client, Filters, Message
+from pyrogram import Client, Filters, Message, User, Chat
 from docopt import docopt, DocoptExit
-from .shared import gefilter
+from .utils import gefilter, err
 
 
 @Client.on_message(gefilter('id'))
 async def _(cl: Client, msg: Message):
+    text = await get_id(cl, msg)
+    await msg.edit_text(text, parse_mode='html')
+
+
+async def get_id(cl: Client, msg: Message):
     try:
         a = docopt(__doc__, argv=msg.command[1:], help=False)
     except DocoptExit as e:
-        text = f'<pre>{e.usage}</pre>'
-    else:
-        if a['--help']:
-            text = f'<pre>{__doc__.strip()}</pre>'
+        return  f'<pre>{e.usage}</pre>'
+
+    if a['--help']:
+        return f'<pre>{__doc__.strip()}</pre>'
+
+    if a['--me']:
+        u = await cl.get_me()
+        chat = u
+    elif a['--replied']:
+        if msg.reply_to_message:
+            chat = msg.reply_to_message.from_user
         else:
-            if a['--me']:
-                u = await cl.get_me()
-                id = u.id
-            elif a['--replied']:
-                if msg.reply_to_message:
-                    id = msg.reply_to_message.from_user.id
-                else:
-                    err = "msg.rtm is None"
-            elif a['--forwarded']:
-                if msg.reply_to_message.forward_from_chat:
-                    id = msg.reply_to_message.forward_from_chat.id
-                elif msg.reply_to_message.forward_from:
-                    id = msg.reply_to_message.forward_from.id
-                else:
-                    err = "msg.rtm is not a forwarded msg"
-            else:
-                id = msg.chat.id
+            return err('msg.rtm is None')
+    elif a['--forwarded']:
+        if msg.reply_to_message.forward_from_chat:
+            chat = msg.reply_to_message.forward_from_chat
+        elif msg.reply_to_message.forward_from:
+            chat = msg.reply_to_message.forward_from
+        else:
+            return err('msg.rtm is not a forwarded msg')
+    else:
+        chat = msg.chat
 
-            try:
-                if a['--hex']: id = hex(id)
-                text = f'<code>{id}</code>'
-            except NameError:
-                text = f'<i>{err}</i>'
+    if a['--hex']:
+        return f'<code>{hex(chat.id)}</code>'
 
-    await msg.edit_text(text, parse_mode='html')
+    if a['--permalink']:
+        if (type(chat) == Chat and chat.type == 'private') or (type(chat) == User and not chat.is_bot):
+            return f'permalink for <a href=tg://user?id={chat.id}>{chat.id}</a>'
+        return err('permalink available only for users')
+
+    return f'<code>{chat.id}</code>'
