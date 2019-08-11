@@ -1,7 +1,8 @@
 from pyrogram import Filters
-from functools import partial
 
-prefix = '.:!'
-separator = None
+p = list('.:!')
+chats_allowed = ['pyrogramlounge', -1001257291641]
 
-cmd_filter = partial(Filters.command, prefix=prefix, separator=separator)
+
+def gefilter(cmd):
+    return Filters.command(cmd, prefixes=p) & (Filters.me | Filters.chat(chats_allowed)) & ~Filters.edited

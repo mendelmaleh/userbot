@@ -12,10 +12,10 @@ usage: id [-h] [-x] [-c | -m | -r | -f]
 
 from pyrogram import Client, Filters, Message
 from docopt import docopt, DocoptExit
-from .shared import cmd_filter
+from .shared import gefilter
 
 
-@Client.on_message(cmd_filter('id') & Filters.me)
+@Client.on_message(gefilter('id'))
 async def _(cl: Client, msg: Message):
     try:
         a = docopt(__doc__, argv=msg.command[1:], help=False)
@@ -25,7 +25,7 @@ async def _(cl: Client, msg: Message):
         if a['--help']:
             text = f'<pre>{__doc__.strip()}</pre>'
         else:
-            if a['--me'] == True:
+            if a['--me']:
                 u = await cl.get_me()
                 id = u.id
             elif a['--replied']:
