@@ -5,7 +5,7 @@ chats_allowed = ['pyrogramlounge', -1001257291641]
 
 
 def gefilter(cmd):
-    return Filters.command(cmd, prefixes=p) & (Filters.me | Filters.chat(chats_allowed)) & ~Filters.edited
+    return Filters.command(cmd, prefixes=p) & Filters.me & ~Filters.edited
 
 
 def err(text):
