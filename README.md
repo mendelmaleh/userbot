@@ -1,13 +1,26 @@
-## Userbot
-*My personal telegram userbot. Built with [Pyrogram](https://github.com/pyrogram/pyrogram).*
+# Userbot
+My personal telegram userbot. Built with [Pyrogram](https://github.com/pyrogram/pyrogram).
 
-**commands:**
+## Commands
+- **id**: get the ID for the chat, message, or yourself, in various formats.
+- **ping**: test your userbot's latency (only indicative).
+- **wttr**: get the weather for the given location, in various formats.
 
-**functions:**
+## Functions
+- **welcome**: welcome newcomers to chats.
 
-**todo:**
+## Setup:
+Create and start `venv` for the dependencies:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+```
 
-### Setup:
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
 Create a `config.ini` file with your Telegram API `id` and `hash` in the following format:
 ```ini
