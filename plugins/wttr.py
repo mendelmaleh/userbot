@@ -1,7 +1,8 @@
+from html import escape
+
 from pyrogram import Client
 from docopt import DocoptExit
 from wttr import wttr
-from html import escape
 from .utils import gefilter
 
 
@@ -20,5 +21,5 @@ async def weather(cl, msg):
     except DocoptExit as e:
         wt = e.usage
 
-    text = f'<pre>{escape(wt)}</pre>'
+    text = f'<pre>{escape(wt)}</pre>‎'
     await msg.reply_text(text, quote=False, parse_mode='html')
