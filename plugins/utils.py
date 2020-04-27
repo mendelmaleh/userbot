@@ -10,3 +10,7 @@ def gefilter(cmd):
 
 def err(text):
     return f'<i>{text}</i>'
+
+async def awall(*args):
+    for a in args:
+        await a
