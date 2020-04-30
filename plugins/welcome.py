@@ -1,6 +1,7 @@
 import asyncio
 
 from pyrogram import Client, Filters
+from .utils import awall
 
 chats = [-1001221450384, -1001372920765]
 welcome = ['👋‎', '✋‎']
