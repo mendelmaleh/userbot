@@ -27,5 +27,8 @@ Create a `config.ini` file with your Telegram API `id` and `hash` in the followi
 [pyrogram]
 api_id = 12345
 api_hash = 0123456789abcdef0123456789abcdef
+
+[plugins]
+root = plugins
 ```
-More info at Pyrogram's [official docs.](https://docs.pyrogram.org/topics/config-file)
+The `root` is the folder with the plugins, in this repo it is `plugins`, so there is no need to change this.  More info at Pyrogram's [official docs.](https://docs.pyrogram.org/topics/config-file)
