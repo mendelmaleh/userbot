@@ -1,4 +1,4 @@
-https://github.com/pyrogram/pyrogram/archive/asyncio-dev.zip
-https://github.com/mendelmaleh/wttr.py/archive/master.zip
+git+https://github.com/pyrogram/pyrogram@asyncio-dev
+git+https://github.com/mendelmaleh/wttr.py
 tgcrypto
 docopt
