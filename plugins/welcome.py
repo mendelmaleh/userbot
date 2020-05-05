@@ -1,12 +1,14 @@
 import asyncio
 
 from pyrogram import Client, Filters
-from .utils import awall
 
-chats = [-1001221450384, -1001372920765]
+from .utils import config, isnumber, awall
+
+welcome_chats = [int(c) if isnumber(c) else c for c in config['welcome']['chats'].split()]
 welcome = ['👋‎', '✋‎']
 
-@Client.on_message(Filters.new_chat_members & Filters.chat(chats))
+
+@Client.on_message(Filters.new_chat_members & Filters.chat(welcome_chats))
 async def _(cl, msg):
     msg = await cl.send_message(
         chat_id=msg.chat.id,
