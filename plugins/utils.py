@@ -2,6 +2,7 @@ from configparser import ConfigParser
 from inspect import getfullargspec
 
 from pyrogram import Filters, Message
+from pyrogram.client.filters.filter import Filter
 
 
 def isnumber(text: str) -> bool:
@@ -16,15 +17,17 @@ p = list(config['commands'].get('prefixes', '.'))
 allowed = [int(c) if isnumber(c) else c for c in config['commands']['chats'].split()]
 
 
-def mefilter(cmd: str) -> pyrogram.client.filters.filter.Filter:
+def mefilter(cmd: str) -> Filter:
     return Filters.command(cmd, prefixes=p) & Filters.me
 
 
-def gefilter(cmd):
+def gefilter(cmd: str) -> Filter:
     return Filters.command(cmd, prefixes=p) & (Filters.me | Filters.chat(allowed) & ~Filters.edited)
 
-def err(text):
+
+def err(text: str) -> str:
     return f'<i>{text}</i>'
+
 
 async def awall(*args):
     for a in args:

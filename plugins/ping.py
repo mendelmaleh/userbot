@@ -1,11 +1,11 @@
-import time, asyncio
+import time
 
 from pyrogram import Client, Message
 from .utils import mefilter
 
-async def ping(_, msg: Message):
 
 @Client.on_message(mefilter('ping'))
+async def _(_, msg: Message):
     start = time.time()
     await msg.edit('...')
     delta = time.time() - start

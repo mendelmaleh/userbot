@@ -11,10 +11,10 @@ from .utils import edrep, gefilter
 async def weather(cl, msg):
     args = msg.command[1:]
     defs = {
-            '--days': 0,
-            '--narrow': True,
-            '--no-terminal': True,
-            '<location>': 'New York',
+        '--days': 0,
+        '--narrow': True,
+        '--no-terminal': True,
+        '<location>': 'New York',
     }
 
     try:

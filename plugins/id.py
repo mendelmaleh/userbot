@@ -12,30 +12,29 @@ usage: id [-h] [-x | -p] [-c | -m | -r | -f]
   -f, --forwarded   'forwarded from' from rtm
 '''
 
-from pyrogram import Client, Filters, Message, User, Chat
+from pyrogram import Client, Message, User, Chat
 from docopt import docopt, DocoptExit
 
 from .utils import edrep, gefilter, err
 
 
 @Client.on_message(gefilter('id'))
-async def _(cl: Client, msg: Message):
-    text = await get_id(cl, msg)
+async def _(_, msg: Message):
+    text = await get_id(msg)
     await edrep(msg, text=text, parse_mode='html')
 
 
-async def get_id(cl: Client, msg: Message):
+async def get_id(msg: Message):
     try:
         a = docopt(__doc__, argv=msg.command[1:], help=False)
     except DocoptExit as e:
-        return  f'<pre>{e.usage}</pre>'
+        return f'<pre>{e.usage}</pre>'
 
     if a['--help']:
         return f'<pre>{__doc__.strip()}</pre>'
 
     if a['--me']:
-        u = await cl.get_me()
-        chat = u
+        chat = msg.from_user
     elif a['--replied']:
         if msg.reply_to_message:
             chat = msg.reply_to_message.from_user
