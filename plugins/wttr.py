@@ -3,7 +3,8 @@ from html import escape
 from pyrogram import Client
 from docopt import DocoptExit
 from wttr import wttr
-from .utils import gefilter
+
+from .utils import edrep, gefilter
 
 
 @Client.on_message(gefilter('wttr'))
@@ -22,4 +23,4 @@ async def weather(cl, msg):
         wt = e.usage
 
     text = f'<pre>{escape(wt)}</pre>‎'
-    await msg.reply_text(text, quote=False, parse_mode='html')
+    await edrep(msg, text=text, quote=False, parse_mode='html')

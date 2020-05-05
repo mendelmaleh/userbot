@@ -14,13 +14,14 @@ usage: id [-h] [-x | -p] [-c | -m | -r | -f]
 
 from pyrogram import Client, Filters, Message, User, Chat
 from docopt import docopt, DocoptExit
-from .utils import gefilter, err
+
+from .utils import edrep, gefilter, err
 
 
 @Client.on_message(gefilter('id'))
 async def _(cl: Client, msg: Message):
     text = await get_id(cl, msg)
-    await msg.edit_text(text, parse_mode='html')
+    await edrep(msg, text=text, parse_mode='html')
 
 
 async def get_id(cl: Client, msg: Message):
