@@ -16,6 +16,10 @@ p = list(config['commands'].get('prefixes', '.'))
 allowed = [int(c) if isnumber(c) else c for c in config['commands']['chats'].split()]
 
 
+def mefilter(cmd: str) -> pyrogram.client.filters.filter.Filter:
+    return Filters.command(cmd, prefixes=p) & Filters.me
+
+
 def gefilter(cmd):
     return Filters.command(cmd, prefixes=p) & (Filters.me | Filters.chat(allowed) & ~Filters.edited)
 
