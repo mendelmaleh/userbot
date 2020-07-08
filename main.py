@@ -1,3 +1,3 @@
 from pyrogram import Client
 
-Client('userbot-async').run()
+Client('userbot-async', parse_mode='html').run()

@@ -14,4 +14,4 @@ async def _(cl, msg: Message):
         if msg.command[1] == 'chatmember':
             m = await cl.get_chat_member(m.chat.id, m.from_user.id)
 
-    await msg.edit(text='<pre>' + escape(str(m)) + '</pre>', parse_mode='html')
+    await msg.edit(text='<pre>' + escape(str(m)) + '</pre>')

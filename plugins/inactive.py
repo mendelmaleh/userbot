@@ -17,7 +17,7 @@ import timeago
 @Client.on_message(mefilter('inactive'))
 async def _(cl: Client, msg: Message):
     text = await get_inactive(cl, msg)
-    await edrep(msg, text=text, parse_mode='html')
+    await edrep(msg, text=text)
 
 
 async def get_inactive(cl: Client, msg: Message):

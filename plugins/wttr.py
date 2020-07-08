@@ -23,4 +23,4 @@ async def weather(cl, msg):
         wt = e.usage
 
     text = f'<pre>{escape(wt)}</pre>‎'
-    await edrep(msg, text=text, quote=False, parse_mode='html')
+    await edrep(msg, text=text, quote=False)

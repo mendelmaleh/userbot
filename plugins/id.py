@@ -21,7 +21,7 @@ from .utils import edrep, gefilter, err
 @Client.on_message(gefilter('id'))
 async def _(_, msg: Message):
     text = await get_id(msg)
-    await edrep(msg, text=text, parse_mode='html')
+    await edrep(msg, text=text)
 
 
 async def get_id(msg: Message):
