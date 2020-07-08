@@ -3,6 +3,7 @@ My personal telegram userbot. Built with [Pyrogram](https://github.com/pyrogram/
 
 ## Commands
 - **id**: get the ID for the chat, message, or yourself, in various formats.
+- **inactive**: get the 5 least active members of the group.
 - **ping**: test your userbot's latency (only indicative).
 - **print**: print message info.
 - **wttr**: get the weather for the given location, in various formats.
