@@ -1,9 +1,10 @@
 '''
-usage: id [-h] [-x | -p] [-c | -m | -r | -f]
+usage: id [-h] [-x | -b | -p] [-c | -m | -r | -f]
 
   -h, --help        help message
 
-  -x, --hex         id as hex
+  -x, --hex         id in hex
+  -b, --bin         id in binary
   -p, --permalink   id as permalink
 
   -c, --chat        chat id (default)
@@ -52,6 +53,9 @@ async def get_id(msg: Message):
 
     if a['--hex']:
         return f'<code>{hex(chat.id)}</code>'
+
+    if a['--bin']:
+        return f'<code>{bin(chat.id)}</code>'
 
     if a['--permalink']:
         if (type(chat) == Chat and chat.type == 'private') or (type(chat) == User and not chat.is_bot):
