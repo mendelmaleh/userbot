@@ -7,6 +7,7 @@ usage: inactive [-h] [-n INACTIVE] [-l LIMIT]
 '''
 
 from pyrogram import Client, Message
+from pyrogram.client.ext.utils import get_channel_id
 from docopt import docopt, DocoptExit
 from .utils import edrep, mefilter
 
@@ -47,6 +48,6 @@ async def get_inactive(cl: Client, msg: Message):
         messages = messages[:inactive]
 
     return '\n'.join([
-        f'{m.from_user:mention}\'s last <a href="https://t.me/c/{int(m.chat.id + 100e10) * -1}/{m.message_id}">message</a> was {timeago.format(m.date)}'
+        f'{m.from_user.mention}\'s last <a href="https://t.me/c/{get_channel_id(m.chat.id)}/{m.message_id}">message</a> was {timeago.format(m.date)}'
         for m in messages
     ] + [f'<code>{int(delta * 1000)}ms</code>'])
