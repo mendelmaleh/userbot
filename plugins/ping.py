@@ -10,4 +10,4 @@ async def _(_, msg: Message):
     await msg.edit('...')
     delta = time.time() - start
 
-    await msg.edit(f'`{int(delta * 1000)}ms`')
+    await msg.edit(f'<code>{int(delta * 1000)}ms</code>')
