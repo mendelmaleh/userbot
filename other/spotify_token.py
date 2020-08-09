@@ -1,6 +1,6 @@
 import tekore as tk
 
-cfg = {k: input("{k}: ").strip() for k in ('client_id', 'client_secret', 'redirect_uri')}
+cfg = {k: input("Input {k}: ").strip() for k in ('client_id', 'client_secret', 'redirect_uri')}
 
 cred = tk.RefreshingCredentials(*cfg.values())
 
