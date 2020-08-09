@@ -6,6 +6,7 @@ My personal telegram userbot. Built with [Pyrogram](https://github.com/pyrogram/
 - **inactive**: get the 5 least active members of the group.
 - **ping**: test your userbot's latency (only indicative).
 - **print**: print message info.
+- **spt**: get current song playing on spotify.
 - **wttr**: get the weather for the given location, in various formats.
 
 ## Functions
