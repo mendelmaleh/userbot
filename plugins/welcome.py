@@ -1,15 +1,15 @@
 import asyncio
 
-from pyrogram import Client, Filters
-
+from pyrogram import Client, filters
+from pyrogram.types import Message
 from .utils import config, isnumber, awall, mefilter
 
 welcome_chats = [int(c) if isnumber(c) else c for c in config['welcome']['chats'].split()]
 welcome = ['👋‎', '✋‎']
 
 
-@Client.on_message(Filters.new_chat_members & Filters.chat(welcome_chats) | mefilter('hi'))
-async def _(cl, msg):
+@Client.on_message(filters.new_chat_members & filters.chat(welcome_chats) | mefilter('hi'))
+async def _(cl: Client, msg: Message):
     w = await cl.send_message(
         chat_id=msg.chat.id,
         text=welcome[0]

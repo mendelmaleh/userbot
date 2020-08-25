@@ -6,13 +6,15 @@ usage: inactive [-h] [-n INACTIVE] [-l LIMIT]
     -l <l>, --limit <l>     number of members to be retrieved
 '''
 
-from pyrogram import Client, Message
-from pyrogram.client.ext.utils import get_channel_id
-from docopt import docopt, DocoptExit
-from .utils import edrep, mefilter
-
 import time
 import timeago
+
+from pyrogram import Client
+from pyrogram.types import Message
+from pyrogram.utils import get_channel_id
+from .utils import edrep, mefilter
+
+from docopt import docopt, DocoptExit
 
 
 @Client.on_message(mefilter('inactive'))

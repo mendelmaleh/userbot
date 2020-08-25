@@ -13,10 +13,11 @@ usage: id [-h] [-x | -b | -p] [-c | -m | -r | -f]
   -f, --forwarded   'forwarded from' from rtm
 '''
 
-from pyrogram import Client, Message, User, Chat
-from docopt import docopt, DocoptExit
-
+from pyrogram import Client
+from pyrogram.types import Message, User, Chat
 from .utils import edrep, gefilter, err
+
+from docopt import docopt, DocoptExit
 
 
 @Client.on_message(gefilter('id'))

@@ -1,8 +1,8 @@
 from configparser import ConfigParser
 from inspect import getfullargspec
 
-from pyrogram import Filters, Message
-from pyrogram.client.filters.filter import Filter
+from pyrogram import filters
+from pyrogram.types import Message
 
 
 def isnumber(text: str) -> bool:
@@ -17,12 +17,12 @@ p = list(config['commands'].get('prefixes', '.'))
 allowed = [int(c) if isnumber(c) else c for c in config['commands']['chats'].split()]
 
 
-def mefilter(cmd: str) -> Filter:
-    return Filters.command(cmd, prefixes=p) & Filters.me
+def mefilter(cmd: str) -> filters.Filter:
+    return filters.command(cmd, prefixes=p) & filters.me
 
 
-def gefilter(cmd: str) -> Filter:
-    return Filters.command(cmd, prefixes=p) & (Filters.me | Filters.chat(allowed) & ~Filters.edited)
+def gefilter(cmd: str) -> filters.Filter:
+    return filters.command(cmd, prefixes=p) & (filters.me | filters.chat(allowed) & ~filters.edited)
 
 
 def err(text: str) -> str:
@@ -36,5 +36,5 @@ async def awall(*args):
 
 async def edrep(msg: Message, **kwargs):
     func = msg.edit if msg.from_user.is_self else msg.reply
-    spec = getfullargspec(func).args
+    spec = getfullargspec(func.__wrapped__).args
     await func(**{k: v for k, v in kwargs.items() if k in spec})

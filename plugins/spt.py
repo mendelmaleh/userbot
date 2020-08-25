@@ -1,7 +1,9 @@
-from pyrogram import Client, Message
+from pyrogram import Client
+from pyrogram.types import Message
+from .utils import config, mefilter
+
 import tekore as tk
 
-from .utils import config, mefilter
 
 if 'spotify' in config and 'token' in config['spotify']:
     spotify = tk.Spotify(config['spotify']['token'])

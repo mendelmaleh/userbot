@@ -1,11 +1,12 @@
 from html import escape
 
-from pyrogram import Client, Message
+from pyrogram import Client
+from pyrogram.types import Message
 from .utils import mefilter
 
 
 @Client.on_message(mefilter('print'))
-async def _(cl, msg: Message):
+async def _(cl: Client, msg: Message):
     m = msg.reply_to_message or msg # or copy.copy(msg)\n del m.from_user
 
     if len(msg.command) > 1:

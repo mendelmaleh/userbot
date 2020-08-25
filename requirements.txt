@@ -1,4 +1,4 @@
-git+https://github.com/pyrogram/pyrogram@asyncio-dev
+git+https://github.com/pyrogram/pyrogram@master
 git+https://github.com/mendelmaleh/wttr.py
 tgcrypto
 timeago
