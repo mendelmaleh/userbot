@@ -6,8 +6,7 @@ from pyrogram.types import Message
 
 
 def isnumber(text: str) -> bool:
-    text = text[1:] if text[0] == '-' else text
-    return text.isnumeric()
+    return text.lstrip('-').isnumeric()
 
 
 config = ConfigParser()
