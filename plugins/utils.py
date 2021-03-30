@@ -1,4 +1,5 @@
 from configparser import ConfigParser
+from html import escape
 from inspect import getfullargspec
 
 from pyrogram import filters
@@ -22,6 +23,10 @@ def mefilter(cmd: str) -> filters.Filter:
 
 def gefilter(cmd: str) -> filters.Filter:
     return filters.command(cmd, prefixes=p) & (filters.me | filters.chat(allowed) & ~filters.edited)
+
+
+def code(text: str) -> str:
+    return '<pre>' + escape(str(text)) + '</pre>'
 
 
 def err(text: str) -> str:

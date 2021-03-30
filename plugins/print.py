@@ -1,8 +1,6 @@
-from html import escape
-
 from pyrogram import Client
 from pyrogram.types import Message
-from .utils import mefilter
+from .utils import code, mefilter
 
 
 @Client.on_message(mefilter('print'))
@@ -18,7 +16,7 @@ async def _(cl: Client, msg: Message):
             m = await cl.get_chat_member(m.chat.id, m.from_user.id)
 
     print(m)
-    await msg.edit(text='<pre>' + escape(str(m)) + '</pre>')
+    await msg.edit(text=code(m))
 
 
 @Client.on_message(mefilter('chat'))
@@ -29,4 +27,4 @@ async def _(cl: Client, msg: Message):
 
     chat = await cl.get_chat(chat_id)
     print(chat)
-    await msg.edit(text='<pre>' + escape(str(chat)) + '</pre>')
+    await msg.edit(text=code(chat))
