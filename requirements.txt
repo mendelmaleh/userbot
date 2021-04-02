@@ -1,5 +1,6 @@
 git+https://github.com/pyrogram/pyrogram@master
 git+https://github.com/mendelmaleh/wttr.py
+git+https://github.com/mendelmaleh/iliad.py
 tgcrypto
 timeago
 docopt
