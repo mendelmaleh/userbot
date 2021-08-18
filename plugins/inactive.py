@@ -1,9 +1,10 @@
 '''
-usage: inactive [-h] [-n INACTIVE] [-l LIMIT]
+usage: inactive [-h] [-c CHAT] [-n INACTIVE] [-l LIMIT]
 
-    -h, --help              help message
-    -n <n>, --inactive <n>  number of most inactive users to show [default: 8]
-    -l <l>, --limit <l>     number of members to be retrieved
+    -h, --help                  help message
+    -c <chat>, --chat <chat>    chat to scan [default: current]
+    -n <n>, --inactive <n>      number of most inactive users to show [default: 8]
+    -l <l>, --limit <l>         number of members to be retrieved
 '''
 
 import time
@@ -12,7 +13,7 @@ import timeago
 from pyrogram import Client
 from pyrogram.types import Message
 from pyrogram.utils import get_channel_id
-from .utils import edrep, mefilter
+from .utils import edrep, mefilter, code
 
 from docopt import docopt, DocoptExit
 
@@ -34,14 +35,22 @@ async def get_inactive(cl: Client, msg: Message):
 
     inactive = int(a['--inactive'])
     limit = int(a['--limit']) if a['--limit'] else 0
+    chat = msg.chat
 
-    await msg.edit('...')
+    if a['--chat'][0] == '@':
+        chat = await cl.get_chat(a['--chat'])
+    elif a['--chat'][1:].isdigit():
+        chat = await cl.get_chat(int(a['--chat']))
+    else:
+        return code(f"--chat == {a['--chat']}")
+
+    await msg.edit(f'scanning chat "{chat.title}"...')
     start = time.time()
 
     messages = [m
-                async for member in cl.iter_chat_members(msg.chat.id, limit=limit, filter='recent')
+                async for member in cl.iter_chat_members(chat.id, limit=limit, filter='recent')
                 if not member.user.is_deleted
-                async for m in cl.search_messages(msg.chat.id, limit=1, from_user=member.user.id)]
+                async for m in cl.search_messages(chat.id, limit=1, from_user=member.user.id)]
 
     delta = time.time() - start
     messages.sort(key=lambda k: k['date'])
