@@ -22,11 +22,16 @@ def mefilter(cmd: str) -> filters.Filter:
 
 
 def gefilter(cmd: str) -> filters.Filter:
-    return filters.command(cmd, prefixes=p) & (filters.me | filters.chat(allowed) & ~filters.edited)
+    # return filters.command(cmd, prefixes=p) & (filters.me | filters.chat(allowed) & ~filters.edited)
+    return mefilter(cmd)
 
 
 def code(text: str) -> str:
-    return '<pre>' + escape(str(text)) + '</pre>'
+    return f'<code>{escape(str(text))}</code>'
+
+
+def pre(text: str) -> str:
+    return f'<pre>{escape(str(text))}</pre>'
 
 
 def err(text: str) -> str:
